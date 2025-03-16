@@ -2,43 +2,37 @@ import { View, Text, Pressable, StyleSheet } from 'react-native'
 import React from 'react'
 import { globalStyles } from '@/styles/global';
 import { Colors } from '@/constants/Colors';
+import * as Haptics from 'expo-haptics';
 
 interface Props {
-    label:string;
+    label: string;
+    blackText?: boolean;
+    color?: string;
+    doubleSized?: boolean;
+    onPress: () => void;
+    onLongPress?: () => {};
 }
 
-export default function CalcButton({label}:Props) {
+export default function CalcButton({ label, color = Colors.darkGray, blackText = false, doubleSized = false, onPress, onLongPress }: Props) {
+
+
+
     return (
-        <Pressable style={[localStyles.operations,localStyles.padding,localStyles.margin]}>
-        <Text style={[localStyles.ligth,]}>{label}</Text>
-    </Pressable>
-  )
+        <Pressable style={({ pressed }) => ({
+            ...globalStyles.button,
+            alignItems:'center',
+            justifyContent:'center',
+            backgroundColor: color,
+            width: doubleSized ? 150 : 70,
+            opacity: pressed ? 0.6 : 1
+        })}
+
+            onPress={() => {
+                Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)                      
+                onPress();
+            }}
+        >
+            <Text style={[globalStyles.buttonText, { color: !blackText ? Colors.textPrimary : Colors.background }]}>{label}</Text>
+        </Pressable>
+    )
 }
-
-const localStyles = StyleSheet.create({
-
-    operations:{
-        backgroundColor:Colors.orange
-    },
-    padding:{padding:20},
-    margin:{
-        margin:5
-    },
-    rounded:{
-        borderRadius:20
-    },
-    font:{
-        fontFamily:'Nunito',
-        fontSize:30
-    },
-    dark:{
-        backgroundColor:Colors.darkGray,
-        color:Colors.textPrimary,
-    },
-
-    ligth:{
-        backgroundColor:Colors.lightGray,
-        color:Colors.textSecondary,
-    }
-
-})

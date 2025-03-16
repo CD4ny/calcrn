@@ -12,11 +12,9 @@ export const globalStyles = StyleSheet.create({
     calculatorContainer: {
         flex: 1,
         justifyContent: "flex-end",
-        paddingBottom: 20,
-        paddingHorizontal: 20
     },
     mainResult: {
-        fontSize: 60,
+        fontSize: 40,
         fontFamily: "Nunito",
         color: Colors.textSecondary,
         textAlign: "right"
@@ -28,14 +26,36 @@ export const globalStyles = StyleSheet.create({
         textAlign: "right"
     },
     display: {
-        paddingHorizontal: 20,
-        paddingBottom: 20
+        flex:.3,
+        flexDirection:"column",
+        justifyContent:"flex-end",
+        alignItems:"flex-end"
     },
     numpad: {
+        flex:.55,
+        alignItems: "center",
+    },
+    row: {
+        flex: 1,
+        justifyContent: "space-between",
+        alignItems:'center',
         flexDirection: "row"
     },
-    row: { 
-        flex: 1,
-        justifyContent:"space-between", 
-        flexDirection: "row" }
+    button: {
+        width: 70,
+        height: 70,
+        marginHorizontal: 5,
+        justifyContent:'center',
+        alignItems:'center',
+        borderRadius: 100,
+        padding:10
+    },
+    buttonText: {
+        textAlignVertical:'center',
+        textAlign:"center",
+        fontFamily:'Nunito',
+        fontSize: 32,
+        color: 'white',
+        fontWeight:300,
+    }
 })
