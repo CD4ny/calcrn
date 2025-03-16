@@ -9,8 +9,6 @@ enum Operator {
 
 export function useCalc() {
 
-
-
     const lastOperation = useRef<Operator>();
 
     const [formula, setFormula] = useState('')
@@ -21,6 +19,11 @@ export function useCalc() {
         if (number !== '.' && (postOp === '0' || postOp === '-0')) {
             if (number === '0')
                 return;
+            if (postOp === '-0') {
+                setPostOp('-' + number)
+                return;
+            }
+
             setPostOp(number)
             return;
         }
@@ -42,14 +45,10 @@ export function useCalc() {
         setFormula('0');
     }
     const remove = () => {
-        if (postOp.length > 1)
-            setPostOp();
+        if (postOp.length > 2 && preOp !== '-0')
+            setPostOp(postOp.slice(0, -1));
         else
             setPostOp('0');
-
-        return;
-        console.log(postOp);
-
     }
     const ABS = () => {
         if (postOp.startsWith('-'))
@@ -62,8 +61,6 @@ export function useCalc() {
 
         setFormula(preOp);
     }, [preOp])
-
-
 
     return {
         //props
